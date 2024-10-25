@@ -3,18 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se body</title>
+    <title>Fetch Data</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .button-container {
+            margin: 20px 0;
+        }
+        input[type="button"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .data-display {
+            width: 80%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="display: block; align-items: center;">Fetch data</h1>
-    <input type="button" value="Get data" onclick="fetchData()">
+    <h1>Fetch Data</h1>
+    <div class="button-container">
+        <input type="button" value="Get data" onclick="fetchData()">
+    </div>
+    <div class="data-display" id="dataDisplay">I dati verranno visualizzati qui...</div>
     
     <script>
         function fetchData() {
-            fetch("https://test-pipe-gobbi.onrender.com/data")
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+            fetch("https://test-pipe-gobbi.onrender.com/data", {
+                headers: {
+                    'Access-Control-Allow-Origin': 'https://test-pipe-gobbi.onrender.com'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Errore nella richiesta');
+                    return response.json();
+                })
+                .then(data => {
+                    const dataDisplay = document.getElementById('dataDisplay');
+                    dataDisplay.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('dataDisplay').textContent = 'Errore nel caricamento dei dati.';
+                });
         }
     </script>
 </body>
