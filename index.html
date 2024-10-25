@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se body</title>
+</head>
+<body>
+    <h1 style="display: block; align-items: center;">Fetch data</h1>
+    <input type="button" value="Get data" onclick="fetchData()">
+    
+    <script src="config.js"></script>
+    <script>
+        function fetchData() {
+            fetch("localhost:3000/data")
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
