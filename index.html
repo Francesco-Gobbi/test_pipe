@@ -55,11 +55,7 @@
     
     <script>
         function fetchData() {
-            fetch("https://test-pipe-gobbi.onrender.com/data", {
-                headers: {
-                    'Access-Control-Allow-Origin': 'https://test-pipe-gobbi.onrender.com'
-                }
-            })
+            fetch("https://test-pipe-gobbi.onrender.com/data")
                 .then(response => {
                     if (!response.ok) throw new Error('Errore nella richiesta');
                     return response.json();
