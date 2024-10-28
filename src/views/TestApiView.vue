@@ -5,13 +5,12 @@
       <div 
         class="card" 
         v-for="servizio in servizi" 
-        :key="servizio.id"
+        :key="servizio.nome"
       >
         <h2>{{ servizio.nome }}</h2>
-        <p>{{ servizio.descrizione }}</p>
-        <p>Disponibilità: {{ servizio.disponibilita }}</p>
+        <p>Disponibilità: {{ servizio.numero }}</p>
         <button 
-          :disabled="servizio.disponibilita === 0" 
+          :disabled="servizio.numero === 0" 
           @click="selezionaServizio(servizio)"
         >
           Prenota
@@ -72,7 +71,7 @@ export default {
         .then((data)=>{
           if (data.ok){
             console.log(data)
-            this.servizi = data.json();
+            this.servizi = data.json()["oggetti"];
           }else{
             throw new Error("Errore nella richiesta");
           }
