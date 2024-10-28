@@ -67,11 +67,18 @@ export default {
     },
     getServizi(){
       try{
-        fetch("https://test-pipe-gobbi.onrender.com/data")
+        fetch("https://test-pipe-gobbi.onrender.com/data",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+        )
         .then((data)=>{
           if (data.ok){
             console.log(data)
-            this.servizi = data.json();
+            this.servizi = data.json().;
           }else{
             throw new Error("Errore nella richiesta");
           }
