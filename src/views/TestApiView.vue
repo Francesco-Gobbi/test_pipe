@@ -71,7 +71,7 @@ export default {
         .then((data)=>{
           if (data.ok){
             console.log(data)
-            this.servizi = data.json()["oggetti"];
+            this.servizi = data.json();
           }else{
             throw new Error("Errore nella richiesta");
           }
