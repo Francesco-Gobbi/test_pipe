@@ -65,30 +65,30 @@ export default {
     triggerError(msg) {
       this.error = 'Si è verificato un errore. ' + msg;
     },
-    getServizi(){
-      try{
-        fetch("https://test-pipe-gobbi.onrender.com/data",
-        {
+    getServizi() {
+      try {
+        fetch("https://test-pipe-gobbi.onrender.com/data", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-        }
-        )
-        .then((data)=>{
-          if (data.ok){
-            console.log(data)
-            this.servizi = data.json();
-          }else{
-            throw new Error("Errore nella richiesta");
-          }
         })
-        
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Errore nella richiesta");
+            }
+          })
+          .then((data) => {
+            this.servizi = data;
+          })
+          .catch((error) => {
+            this.triggerError(error.message);
+          });
+      } catch (error) {
+        this.triggerError(error.message);
       }
-      catch(error){
-        this.error = error;
-      }
-
     },
     selezionaServizio(servizio) {
       this.servizioSelezionato = servizio.id;
